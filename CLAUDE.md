@@ -32,9 +32,14 @@ Help text adapts to whichever name was used (derived from `argv[0]`).
 The scan namespaces are always labelled `managed-by=kubectl-portscan`, so
 `cleanup` from either name finds them.
 
-For Krew, `krew/portscan.yaml` and `krew/nmap.yaml` are separate plugin entries
-pointing at separate archives (each containing a binary named after its plugin).
-`scripts/dist.sh` builds all archives from one compile and prints checksums.
+For Krew, `plugins/portscan.yaml` and `plugins/nmap.yaml` are separate plugin
+entries pointing at separate archives (each containing a binary named after its
+plugin). `scripts/dist.sh` builds all archives from one compile and prints
+checksums; `scripts/render-krew.sh <version>` renders them into the manifests
+(single source of truth — don't hand-edit). The `plugins/` dir also makes this
+repo usable directly as a krew custom index. Releases are tag-triggered
+(`.github/workflows/release.yml`): build archives, publish the release, and
+commit the refreshed manifests back to `main`.
 
 ## Examples
 

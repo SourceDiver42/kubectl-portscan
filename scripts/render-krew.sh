@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Regenerates krew/portscan.yaml and krew/nmap.yaml for a given version,
+# Regenerates plugins/portscan.yaml and plugins/nmap.yaml for a given version,
 # pulling each sha256 from dist/checksums.txt (produced by scripts/dist.sh).
 # This is the single source of truth for the manifests; don't hand-edit them.
+# plugins/ also makes this repo usable directly as a krew custom index.
 #
 # Usage: scripts/render-krew.sh [VERSION]
 #   VERSION defaults to the exact tag at HEAD, else v0.0.0 (for dry runs).
@@ -26,7 +27,7 @@ sha() { # <name> <os_arch> -> sha256, errors if missing
 
 render() { # <name> <other-name>
   local name="$1" other="$2"
-  cat > "krew/${name}.yaml" <<EOF
+  cat > "plugins/${name}.yaml" <<EOF
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
@@ -65,4 +66,4 @@ EOF
 
 render portscan nmap
 render nmap portscan
-echo "Rendered krew/portscan.yaml and krew/nmap.yaml for ${VERSION}"
+echo "Rendered plugins/portscan.yaml and plugins/nmap.yaml for ${VERSION}"

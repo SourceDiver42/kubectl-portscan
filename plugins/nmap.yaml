@@ -1,7 +1,7 @@
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
-  name: portscan
+  name: nmap
 spec:
   version: v0.1.0
   homepage: https://github.com/SourceDiver42/kubectl-portscan
@@ -14,20 +14,20 @@ spec:
   caveats: |
     Creates a privileged namespace and a pod with NET_RAW/NET_ADMIN (or none
     with --scan-type connect). Requires RBAC to create namespaces and pods.
-    Also available as `kubectl nmap` (separate plugin entry, same binary).
+    Also available as `kubectl portscan` (separate plugin entry, same binary).
   platforms:
   - selector:
       matchLabels: {os: linux, arch: amd64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_amd64.tar.gz
-    sha256: 4404cd52598b3261da339d7121ce3bd70e9f48a85b14e126355ccffa615c6efe
-    bin: kubectl-portscan
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_linux_amd64.tar.gz
+    sha256: 71f8ec249f4978324728f4656f895f755304ad45a6a229c28963b392b07375f0
+    bin: kubectl-nmap
   - selector:
       matchLabels: {os: linux, arch: arm64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_arm64.tar.gz
-    sha256: 18015381d2bb49d87090611425cf8acb1d51164fe41c1e576821d8b718edbf12
-    bin: kubectl-portscan
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_linux_arm64.tar.gz
+    sha256: c570542e1259506d7f2292f0a150c63b0cef26ab2b69122c5851204fda08b518
+    bin: kubectl-nmap
   - selector:
       matchLabels: {os: darwin, arch: arm64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_darwin_arm64.tar.gz
-    sha256: 588b18e0c3797854cdb9d708b6a37dcc6156e6fb19cd319e4784a9c1e4c2e30a
-    bin: kubectl-portscan
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_darwin_arm64.tar.gz
+    sha256: c863b8a7ee8b30ba0d31fb981d4dfe3d6e1ac080f9be26dae81cb33e8d284168
+    bin: kubectl-nmap

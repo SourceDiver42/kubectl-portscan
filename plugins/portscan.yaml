@@ -1,7 +1,7 @@
 apiVersion: krew.googlecontainertools.github.com/v1alpha2
 kind: Plugin
 metadata:
-  name: nmap
+  name: portscan
 spec:
   version: v0.1.0
   homepage: https://github.com/SourceDiver42/kubectl-portscan
@@ -14,20 +14,20 @@ spec:
   caveats: |
     Creates a privileged namespace and a pod with NET_RAW/NET_ADMIN (or none
     with --scan-type connect). Requires RBAC to create namespaces and pods.
-    Also available as `kubectl portscan` (separate plugin entry, same binary).
+    Also available as `kubectl nmap` (separate plugin entry, same binary).
   platforms:
   - selector:
       matchLabels: {os: linux, arch: amd64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_linux_amd64.tar.gz
-    sha256: 4b3bc71d349be907406055ef4685a2a7d61b8b0b0fb5930bf64a1e71f50df794
-    bin: kubectl-nmap
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_amd64.tar.gz
+    sha256: 67712f8386e29c87fa752b45ea2a1bfbb9696738dffff13fd461f1ab5f520407
+    bin: kubectl-portscan
   - selector:
       matchLabels: {os: linux, arch: arm64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_linux_arm64.tar.gz
-    sha256: 140d4b501c6d2ec50b8d3e210483e3a2f3325f7034a2d6b3278ddfff8d119f5e
-    bin: kubectl-nmap
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_arm64.tar.gz
+    sha256: a6a63f31f89fe0562b23606c2208aa9bfa2b83a27ca7fe353540628a0b5662f3
+    bin: kubectl-portscan
   - selector:
       matchLabels: {os: darwin, arch: arm64}
-    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-nmap_darwin_arm64.tar.gz
-    sha256: 43681ac3ae16f6fb35966a1637190964bfce51039ec204fe3c5e482b2f2ead15
-    bin: kubectl-nmap
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_darwin_arm64.tar.gz
+    sha256: 30a57774398861151e63ad075a39b22d1d4634e8e7229b6095add707bc96c16a
+    bin: kubectl-portscan

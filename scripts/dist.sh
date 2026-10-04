@@ -29,4 +29,4 @@ done
 
 rm -rf dist/build dist/stage
 ( cd dist && { sha256sum *.tar.gz 2>/dev/null || shasum -a 256 *.tar.gz; } | tee checksums.txt )
-echo "Paste the sha256 values into krew/portscan.yaml and krew/nmap.yaml"
+echo "Run scripts/render-krew.sh <version> to write these into plugins/*.yaml"

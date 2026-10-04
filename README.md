@@ -32,9 +32,24 @@ Help text adapts to whichever name was used (derived from `argv[0]`).
 The scan namespaces are always labelled `managed-by=kubectl-portscan`, so
 `cleanup` from either name finds them.
 
-For Krew, `krew/portscan.yaml` and `krew/nmap.yaml` are separate plugin entries
-pointing at separate archives (each containing a binary named after its plugin).
-`scripts/dist.sh` builds all archives from one compile and prints checksums.
+For Krew, `plugins/portscan.yaml` and `plugins/nmap.yaml` are separate plugin
+entries pointing at separate archives (each containing a binary named after its
+plugin). `scripts/dist.sh` builds all archives from one compile and prints
+checksums; `scripts/render-krew.sh <version>` writes those checksums into the
+manifests (it is the single source of truth — don't hand-edit them).
+
+## Install via Krew
+
+This repo doubles as its own krew custom index (the `plugins/` directory):
+
+```sh
+kubectl krew index add sd42 https://github.com/SourceDiver42/kubectl-portscan.git
+kubectl krew install sd42/portscan   # and/or sd42/nmap
+```
+
+Releases are automated: pushing a `vX.Y.Z` tag builds all archives, publishes a
+GitHub release, and commits the refreshed `plugins/` manifests back to `main`
+(see `.github/workflows/release.yml`), so the index always resolves the latest.
 
 ## Examples
 

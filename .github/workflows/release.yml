@@ -29,5 +29,23 @@ jobs:
         files: |
           dist/*.tar.gz
           dist/checksums.txt
-          krew/portscan.yaml
-          krew/nmap.yaml
+          plugins/portscan.yaml
+          plugins/nmap.yaml
+
+    # Keep the in-repo index (plugins/ on main) in sync with the release, so
+    # `kubectl krew index add ... <this repo>` always resolves the latest.
+    # dist/ is gitignored and survives the checkout, so re-rendering reuses the
+    # same checksums the release was built with.
+    - name: Sync plugins/ to main
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git checkout -B main origin/main
+        bash scripts/render-krew.sh "${GITHUB_REF_NAME}"
+        if git diff --quiet -- plugins/; then
+          echo "manifests already current"
+        else
+          git add plugins/
+          git commit -m "chore: krew manifests for ${GITHUB_REF_NAME} [skip ci]"
+          git push origin main
+        fi
