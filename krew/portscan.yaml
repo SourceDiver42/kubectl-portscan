@@ -1,0 +1,33 @@
+apiVersion: krew.googlecontainertools.github.com/v1alpha2
+kind: Plugin
+metadata:
+  name: portscan
+spec:
+  version: v0.1.0
+  homepage: https://github.com/SourceDiver42/kubectl-portscan
+  shortDescription: Run nmap from inside the cluster
+  description: |
+    Runs nmap in an ephemeral pod, optionally pinned to a node and/or on the
+    host network, so you can test firewalls and exposed ports on nodes without
+    shell access (e.g. Talos). Each run creates a throwaway namespace labelled
+    pod-security.kubernetes.io/enforce=privileged and deletes it afterwards.
+  caveats: |
+    Creates a privileged namespace and a pod with NET_RAW/NET_ADMIN (or none
+    with --scan-type connect). Requires RBAC to create namespaces and pods.
+    Also available as `kubectl nmap` (separate plugin entry, same binary).
+  platforms:
+  - selector:
+      matchLabels: {os: linux, arch: amd64}
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_amd64.tar.gz
+    sha256: 4404cd52598b3261da339d7121ce3bd70e9f48a85b14e126355ccffa615c6efe
+    bin: kubectl-portscan
+  - selector:
+      matchLabels: {os: linux, arch: arm64}
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_linux_arm64.tar.gz
+    sha256: 18015381d2bb49d87090611425cf8acb1d51164fe41c1e576821d8b718edbf12
+    bin: kubectl-portscan
+  - selector:
+      matchLabels: {os: darwin, arch: arm64}
+    uri: https://github.com/SourceDiver42/kubectl-portscan/releases/download/v0.1.0/kubectl-portscan_darwin_arm64.tar.gz
+    sha256: 588b18e0c3797854cdb9d708b6a37dcc6156e6fb19cd319e4784a9c1e4c2e30a
+    bin: kubectl-portscan

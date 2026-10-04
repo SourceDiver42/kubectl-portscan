@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: go.mod
+    - run: go vet ./...
+    - run: go test ./...
+    - run: go build ./...
+
+  cross-compile:
+    # Prove every release target still compiles, on every push.
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target: [linux/amd64, linux/arm64, darwin/arm64]
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v5
+      with:
+        go-version-file: go.mod
+    - env:
+        GOOS: ${{ matrix.target == 'darwin/arm64' && 'darwin' || 'linux' }}
+        GOARCH: ${{ matrix.target == 'linux/amd64' && 'amd64' || 'arm64' }}
+        CGO_ENABLED: "0"
+      run: go build -o /dev/null .
